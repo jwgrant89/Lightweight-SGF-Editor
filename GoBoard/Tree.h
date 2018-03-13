@@ -10,6 +10,8 @@ private:
 	Node mroot;
 public:
 	Tree(Node newroot);
+	Tree();
+	Node* pointerToRoot();
 };
 
 

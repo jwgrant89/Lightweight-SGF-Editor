@@ -1,16 +1,23 @@
 #include "stdafx.h"
 #include "Board.h";
+#include <iostream>;
 
-Board::Board(int boardwidth, int boardheight) : mboardwidth(boardwidth), mboardheight(boardheight)
+Board::Board(sf::Vector2i dimensions) : mboardwidth(dimensions.x), mboardheight(dimensions.y)
 {
 	// initialise mColours
-	char ** boardstate = new char *[boardheight];
-	for (int i = 0;i < boardheight;i++)
+	char ** boardstate = new char *[mboardheight];
+	for (int i = 0;i < mboardheight;i++)
 	{
-		boardstate[i] = new char[boardwidth];
+		boardstate[i] = new char[mboardwidth];
+	}
+	for (int i = 0;i < mboardheight;i++)
+	{
+		for (int j = 0;j < mboardwidth;j++)
+		{
+			boardstate[i][j] = 'N';
+		}
 	}
 	mColours = boardstate;
-	initaliseBoardArea();
 	//set position and attributes of mboardarea
 };
 
@@ -21,8 +28,14 @@ Board::Board():mboardwidth(19),mboardheight(19)
 	{
 		boardstate[i] = new char[mboardwidth];
 	}
+	for (int i = 0;i < mboardheight;i++)
+	{
+		for (int j = 0;j < mboardwidth;j++)
+		{
+			boardstate[i][j] = 'N';
+		}
+	}
 	mColours = boardstate;
-	initaliseBoardArea();
 };
 
 Board::~Board()
@@ -45,7 +58,6 @@ Board::Board(const Board& other): mboardwidth(other.mboardwidth),mboardheight(ot
 		{
 			mColours[i][j] = other.mColours[i][j];
 		}
-	initaliseBoardArea();
 };
 
 Board::Board(Board&& other):mboardwidth(other.mboardwidth), mboardheight(other.mboardheight)
@@ -57,13 +69,6 @@ Board::Board(Board&& other):mboardwidth(other.mboardwidth), mboardheight(other.m
 		boardstate[i] = new char[mboardwidth];
 	}
 	other.mColours = boardstate;
-	initaliseBoardArea();
-};
-
-void Board::initaliseBoardArea()
-{
-	mboardarea.setSize(sf::Vector2f(500, 500));
-	mboardarea.setFillColor(sf::Color::Yellow);
 };
 
 bool Board::operator==(const Board& other) const
@@ -105,7 +110,6 @@ Board& Board::operator=(const Board& other)
 			delete mColours;
 			mColours = colours;
 		}
-		mboardarea = other.mboardarea;
 	}
 	return *this;
 };
@@ -134,7 +138,6 @@ Board& Board::operator=(Board&& other)
 				other.mColours[i] = new char[mboardwidth];
 			};
 		}
-		mboardarea = other.mboardarea;
 	}
 	return *this;
 };
@@ -143,9 +146,4 @@ sf::Vector2i Board::getDimensions()
 {
 	sf::Vector2i dimensions(mboardheight, mboardwidth);
 	return dimensions;
-}
-
-void Board::draw()
-{
-	
 }

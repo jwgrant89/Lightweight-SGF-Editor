@@ -4,6 +4,8 @@
 #include "stdafx.h"
 #include "Node.h"
 #include "Board.h"
+#include "Engine.h"
+#include "GameEngine.h";
 #include <iostream>;
 
 int main()
@@ -23,10 +25,10 @@ int main()
 	//std::cout << node1.firstChild().getStone().getColour();
 	//node1.firstChild().getStone().setColour('W');
 	//std::cout << node1.firstChild().getStone().getColour();
-	Board board;
+	Board board(sf::Vector2i(9, 9));
 	std::cout << board.getDimensions().x;
-	int enter;
-	std::cin >> enter;
+	GameEngine gameengine;
+	gameengine.start();
     return 0;
 }
 

@@ -11,11 +11,6 @@ Node::Node()
 	mstone = new Stone();
 };
 
-Node::~Node()
-{
-	delete mstone;
-	delete mparent;
-}
 Node* Node::getParent()
 {
 	return mparent;

@@ -13,7 +13,6 @@ private:
 public:
 	Node(Stone &stone);
 	Node();
-	~Node();
 	Stone* getStone();
 	Node* getParent();
 	void addChild(Node* childnode);
