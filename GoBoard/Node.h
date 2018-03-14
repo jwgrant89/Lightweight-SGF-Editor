@@ -13,12 +13,12 @@ private:
 public:
 	Node(Stone &stone);
 	Node(Stone &stone, Node* parent);
-	Node();
-	Stone* getStone();
+	//Node();
+	Stone* stone() const;
 	Node* getParent();
 	void addChild(Node* childnode);
 	Node* getChild(int n);
-	char getColour();
+	char colour() const;
 };
 
 

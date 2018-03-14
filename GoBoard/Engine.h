@@ -7,6 +7,7 @@ class Engine
 {
 private:
 	Tree mTree;
+	Node* mrootNode;
 	Node* mCurrentNode;
 	sf::RectangleShape mboardShape;
 	sf::Vector2f mboardSize = sf::Vector2f(500, 500);
@@ -20,8 +21,10 @@ public:
 	Engine(int width, int height);
 	Engine();
 	void initialiseShape();
-	void generateBoardstate();
+	void generateBoardstate(Node* node);
 	bool PlayMove(char colour, sf::Vector2i position);
+	bool PlayMove(char colour, Coord coord);
+	bool PlayMove(Stone stone);
 	sf::Vector2i getGridSize();
 	sf::Vector2f getBoardSize();
 	sf::Vector2f getBoardPosition();
@@ -30,4 +33,5 @@ public:
 	sf::Vector2f NodeSize();
 	void resize(sf::Vector2f);
 	std::vector<sf::RectangleShape> drawBoard();
+	char turnColour() const;
 };

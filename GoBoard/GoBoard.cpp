@@ -15,13 +15,13 @@ int main()
 	Node node1(stone1);
 	Node node2(stone2);
 	node1.addChild(&node2);
-	std::cout << node1.getChild(0)->getColour();
+	std::cout << node1.getChild(0)->colour();
 	stone2.setColour('W');
-	std::cout << stone2.getColour();
-	std::cout << node1.getChild(0)->getColour();
-	std::cout << node2.getParent()->getStone()->getColour();
+	std::cout << stone2.colour();
+	std::cout << node1.getChild(0)->colour();
+	std::cout << node2.getParent()->stone()->colour();
 	stone1.setColour('B');
-	std::cout << node2.getParent()->getStone()->getColour() << std::endl;
+	std::cout << node2.getParent()->stone()->colour() << std::endl;
 	//std::cout << node1.firstChild().getStone().getColour();
 	//node1.firstChild().getStone().setColour('W');
 	//std::cout << node1.firstChild().getStone().getColour();

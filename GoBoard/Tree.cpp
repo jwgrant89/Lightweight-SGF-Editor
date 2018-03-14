@@ -1,14 +1,16 @@
 #include "stdafx.h"
 #include "Tree.h";
 
-Tree::Tree(Node newroot)
+Tree::Tree(Node newroot):mroot(newroot)
 {
-	mroot = newroot;
 }
 
-Tree::Tree()
+Tree::Tree(Stone stone):mroot(Node(stone))
 {
 }
+Tree::Tree() : mroot(Node(Stone()))
+{
+};
 
 Node* Tree::pointerToRoot()
 {

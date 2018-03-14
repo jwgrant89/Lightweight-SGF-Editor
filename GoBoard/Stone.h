@@ -1,4 +1,5 @@
 #pragma once
+#include "Coord.h";
 #include <SFML/Graphics.hpp>;
 
 #ifndef STONE_H
@@ -7,12 +8,14 @@ class Stone
 {
 private:
 	char mcolour; // W, B, N, or K
-	sf::Vector2i mposition;
+	Coord mposition;
 public:
 	Stone();
 	Stone(char colour, sf::Vector2i position);
+	Stone(char colour, Coord coord);
 	void setColour(char colour);
-	char getColour();
+	char colour() const;
+	Coord coord() const;
 	void draw();
 };
 

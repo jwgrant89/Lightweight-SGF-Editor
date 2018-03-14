@@ -36,6 +36,12 @@ void GameEngine::input()
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
 		sf::Vector2i mousePos = nodeMousePosition();
+		char colourToPlay = mengine.turnColour();
+		mengine.PlayMove(colourToPlay,mousePos);
+		if (mengine.turnColour() == 'B')
+			mCursor.setFillColor(sf::Color::Black);
+		else
+			mCursor.setFillColor(sf::Color::White);
 	}
 }
 

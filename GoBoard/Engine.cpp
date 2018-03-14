@@ -4,6 +4,7 @@
 
 Engine::Engine(sf::Vector2i gridDimensions):mboardGridSize(gridDimensions)
 {
+	mrootNode = mTree.pointerToRoot();
 	mCurrentNode = mTree.pointerToRoot();
 	Board board(mboardGridSize);
 	mboard = board;
@@ -61,9 +62,21 @@ std::vector<sf::RectangleShape> Engine::drawBoard()
 	return contents;
 };
 
-void Engine::generateBoardstate()
+void Engine::generateBoardstate(Node* node)
 {
-
+	std::vector<Node*> ancestors;
+	ancestors.push_back(node);
+	Node* parent = node->getParent();
+	while (parent != mTree.pointerToRoot())
+	{
+		ancestors.push_back(parent);
+		parent = parent->getParent();
+	};
+	for (std::vector<Node*>::reverse_iterator it = ancestors.rbegin(); it != ancestors.rend();++it)
+	{
+		Stone stone = *((*it)->stone());
+		PlayMove(stone);		
+	}
 };
 
 sf::Vector2i Engine::getGridSize()
@@ -108,7 +121,36 @@ void Engine::resize(sf::Vector2f newsize)
 
 bool Engine::PlayMove(char colour, sf::Vector2i position)
 {
+	bool legalmove = mboard.doMove(Coord(position), colour);
+	if (!legalmove) return false;
 	Stone newstone(colour, position);
 	Node nextMove(newstone,mCurrentNode);
+	mCurrentNode = &nextMove;
 	return true;
 };
+
+bool Engine::PlayMove(char colour, Coord coord)
+{
+	bool legalmove = mboard.doMove(coord, colour);
+	if (!legalmove) return false;
+	Stone newstone(colour, coord);
+	Node nextMove(newstone, mCurrentNode);
+	mCurrentNode = &nextMove;
+	return true;
+}
+
+bool Engine::PlayMove(Stone stone)
+{
+	Coord coord = stone.coord();
+	char colour = stone.colour();
+	return PlayMove(colour, coord);
+}
+
+char Engine::turnColour() const
+{
+	if (mCurrentNode->colour()=='N') return 'B'; // case of root node
+	char currentColour = mCurrentNode->colour();
+	char nextColour;
+	currentColour == 'B' ? nextColour = 'W':nextColour = 'B';
+	return nextColour;
+}

@@ -12,10 +12,10 @@ Node::Node(Stone &stone, Node* parent)
 	mparent = parent;
 }
 
-Node::Node()
-{
-	mstone = new Stone();
-};
+//Node::Node()
+//{
+//	mstone = new Stone();
+//};
 
 Node* Node::getParent()
 {
@@ -33,12 +33,12 @@ Node* Node::getChild(int n)
 	return mchildren[n];
 };
 
-Stone* Node::getStone()
+Stone* Node::stone() const
 {
 	return mstone;
 }
 
-char Node::getColour()
+char Node::colour() const
 {
-	return this->getStone()->getColour();
+	return this->stone()->colour();
 }

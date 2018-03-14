@@ -8,10 +8,13 @@ class Tree
 {
 private:
 	Node mroot;
+	Node* current;
 public:
 	Tree(Node newroot);
+	Tree(Stone stone);
 	Tree();
 	Node* pointerToRoot();
+	void add(Node newnode, Node oldnode);
 };
 
 

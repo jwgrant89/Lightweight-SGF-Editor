@@ -209,7 +209,7 @@ int Board::liberties(Group G) const
 	std::set<Group> boundary = groupBoundary(G);
 	for (auto it = boundary.begin(); it != boundary.end();++it)
 	{
-		if (it->colour() == 'N') sum++;
+		if (it->colour() == 'N' || it->colour() == 'K') sum++;
 	}
 	return sum;
 };
@@ -224,6 +224,10 @@ bool Board::doMove(Coord c, char colour)
 	if ((*this)[c] != 'N') return false;
 	Board oldboard(*this);
 	updateColour(c, colour);
+	//reset old ko, since we already return false if tried to play on a ko
+	for (int i = 0;i < mboardheight;i++)
+		for (int j = 0;j < mboardwidth;j++)
+			if (mColours[i][j] == 'K') mColours[i][j] = 'N';
 	Group group = connectedGroup(c);
 	std::set<Group> boundary = groupBoundary(group);
 	for (auto it = boundary.begin(); it != boundary.end();++it)
@@ -231,10 +235,10 @@ bool Board::doMove(Coord c, char colour)
 		if (liberties(*it) == 0)
 		{
 			//group is captured (maybe it is already "N")
-			if (group.size() == 1 && liberties(group) == 0 && it->size() == 1)
+			if (group.size() == 1 && liberties(group) == 0 && it->size() == 1 && it->colour()!='N' && it->colour()!='K')
 			{
 				//ko situation
-				updateColour(*(it->coords.begin()), 'K');
+				updateColour(*((*it).coords().begin()), 'K');
 			}
 			else
 			{
@@ -246,7 +250,16 @@ bool Board::doMove(Coord c, char colour)
 			};
 		};
 	};
-
+	//at this point the move we just placed should have some liberties if it was a legal move
+	if (liberties(group) > 0)
+	{
+		return true;
+	}
+	else
+	{
+		*this = oldboard;
+		return false;
+	}
 };
 
 void Board::test()
