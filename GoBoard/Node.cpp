@@ -6,6 +6,12 @@ Node::Node(Stone &stone)
 	mstone = &stone;
 };
 
+Node::Node(Stone &stone, Node* parent)
+{
+	mstone = &stone;
+	mparent = parent;
+}
+
 Node::Node()
 {
 	mstone = new Stone();

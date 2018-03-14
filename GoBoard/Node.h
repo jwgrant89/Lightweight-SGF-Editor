@@ -12,6 +12,7 @@ private:
 	std::vector<Node*> mchildren;
 public:
 	Node(Stone &stone);
+	Node(Stone &stone, Node* parent);
 	Node();
 	Stone* getStone();
 	Node* getParent();

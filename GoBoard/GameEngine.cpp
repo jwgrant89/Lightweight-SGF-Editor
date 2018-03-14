@@ -10,7 +10,7 @@ GameEngine::GameEngine(int width, int height):mengine(Engine(width,height))
 
 GameEngine::GameEngine()
 {
-	mwindow.create(sf::VideoMode(resolution.x, resolution.y), "Go Board", sf::Style::Close);
+	mwindow.create(sf::VideoMode(resolution.x, resolution.y), "Go Board", sf::Style::Close | sf::Style::Resize);
 	mCursor.setSize(mengine.NodeSize());
 	mCursor.setFillColor(sf::Color::Black);
 };
@@ -35,7 +35,7 @@ void GameEngine::input()
 {
 	if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 	{
-		// do something;
+		sf::Vector2i mousePos = nodeMousePosition();
 	}
 }
 
@@ -59,6 +59,12 @@ sf::Vector2i GameEngine::nodeMousePosition(sf::Vector2f(position))
 	int nodex = int(snaptox + 1);
 	int nodey = int(snaptoy + 1);
 	return sf::Vector2i(nodex, nodey);
+}
+
+sf::Vector2i GameEngine::nodeMousePosition()
+{
+	sf::Vector2f position = mengine.localCoordinates(sf::Mouse::getPosition(mwindow));
+	return nodeMousePosition(position);
 }
 
 void GameEngine::draw()

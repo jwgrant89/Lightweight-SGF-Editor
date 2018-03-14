@@ -151,8 +151,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Board.h" />
+    <ClInclude Include="Coord.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GameEngine.h" />
+    <ClInclude Include="Group.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Stone.h" />
@@ -161,9 +163,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Board.cpp" />
+    <ClCompile Include="Coord.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameEngine.cpp" />
     <ClCompile Include="GoBoard.cpp" />
+    <ClCompile Include="Group.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -6,10 +6,11 @@
 class Stone
 {
 private:
-	char colour; // W, B, N, or K
-	sf::CircleShape stone;
+	char mcolour; // W, B, N, or K
+	sf::Vector2i mposition;
 public:
 	Stone();
+	Stone(char colour, sf::Vector2i position);
 	void setColour(char colour);
 	char getColour();
 	void draw();

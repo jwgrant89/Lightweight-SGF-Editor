@@ -17,10 +17,12 @@ public:
 	GameEngine(int width, int height);
 
 	sf::Vector2i nodeMousePosition(sf::Vector2f(position));
+	sf::Vector2i nodeMousePosition();
 	void setCursorPosition(sf::Vector2f(position));
 
 	void start();
 	void update();
+	void resize();
 	void input();
 	void draw();
 };

@@ -26,6 +26,7 @@ int main()
 	//node1.firstChild().getStone().setColour('W');
 	//std::cout << node1.firstChild().getStone().getColour();
 	Board board(sf::Vector2i(9, 9));
+	board.test();
 	std::cout << board.getDimensions().x;
 	GameEngine gameengine;
 	gameengine.start();

@@ -99,3 +99,16 @@ sf::Vector2f Engine::localCoordinates(sf::Vector2i globalCoordinates)
 	float localy = globalCoordinates.y - mboardPosition.y;
 	return sf::Vector2f(localx, localy);
 };
+
+void Engine::resize(sf::Vector2f newsize)
+{
+	mboardSize = newsize;
+	mboardShape.setSize(mboardSize);
+};
+
+bool Engine::PlayMove(char colour, sf::Vector2i position)
+{
+	Stone newstone(colour, position);
+	Node nextMove(newstone,mCurrentNode);
+	return true;
+};

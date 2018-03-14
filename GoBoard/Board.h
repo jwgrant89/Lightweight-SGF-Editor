@@ -1,6 +1,9 @@
 #pragma once
 #include "stdafx.h";
+#include "Coord.h";
+#include "Group.h";
 #include <SFML/Graphics.hpp>;
+#include <set>;
 
 #ifndef BOARD_H
 #define BOARD_H
@@ -21,7 +24,16 @@ public:
 	bool operator!=(const Board& other) const;
 	Board& operator=(const Board& other);
 	Board& operator=(Board&& other);
-	sf::Vector2i getDimensions();
+	char& operator[](Coord c) const;
+	sf::Vector2i getDimensions() const;
+
+	Group connectedGroup(Coord c) const;
+	std::set<Group> groupBoundary(Group G) const;
+	int liberties(Group G) const;
+	void updateColour(Coord c, char colour);
+	bool doMove(Coord c, char colour);
+
+	void test();
 };
 
 #endif // !BOARD_H

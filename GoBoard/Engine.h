@@ -21,11 +21,13 @@ public:
 	Engine();
 	void initialiseShape();
 	void generateBoardstate();
+	bool PlayMove(char colour, sf::Vector2i position);
 	sf::Vector2i getGridSize();
 	sf::Vector2f getBoardSize();
 	sf::Vector2f getBoardPosition();
 	sf::Vector2f localCoordinates(sf::Vector2f globalCoordinates);
 	sf::Vector2f localCoordinates(sf::Vector2i globalCoordinates);
 	sf::Vector2f NodeSize();
+	void resize(sf::Vector2f);
 	std::vector<sf::RectangleShape> drawBoard();
 };

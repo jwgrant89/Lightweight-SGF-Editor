@@ -3,17 +3,23 @@
 
 Stone::Stone()
 {
-	colour = 'N';
+	mcolour = 'N';
+}
+
+Stone::Stone(char colour, sf::Vector2i position)
+{
+	mcolour = colour;
+	mposition = position;
 }
 
 void Stone::setColour(char newcolour)
 {
-	colour = newcolour;
+	mcolour = newcolour;
 }
 
 char Stone::getColour()
 {
-	return colour;
+	return mcolour;
 };
 
 void Stone::draw()
