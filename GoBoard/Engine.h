@@ -7,8 +7,6 @@ class Engine
 {
 private:
 	Tree mTree;
-	Node* mrootNode;
-	Node* mCurrentNode;
 	sf::RectangleShape mboardShape;
 	sf::Vector2f mboardSize = sf::Vector2f(500, 500);
 	sf::Vector2f mboardPosition = sf::Vector2f(0, 0);
@@ -28,10 +26,12 @@ public:
 	sf::Vector2i getGridSize();
 	sf::Vector2f getBoardSize();
 	sf::Vector2f getBoardPosition();
+	sf::Vector2f findPoint(Coord c);
 	sf::Vector2f localCoordinates(sf::Vector2f globalCoordinates);
 	sf::Vector2f localCoordinates(sf::Vector2i globalCoordinates);
 	sf::Vector2f NodeSize();
 	void resize(sf::Vector2f);
 	std::vector<sf::RectangleShape> drawBoard();
 	char turnColour() const;
+	std::vector<sf::CircleShape> stoneShapes();
 };

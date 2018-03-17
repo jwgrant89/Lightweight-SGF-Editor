@@ -7,14 +7,14 @@
 class Node
 {
 private:
-	Stone* mstone;
+	Stone mstone;
 	Node* mparent;
 	std::vector<Node*> mchildren;
 public:
-	Node(Stone &stone);
-	Node(Stone &stone, Node* parent);
-	//Node();
-	Stone* stone() const;
+	Node(Stone stone);
+	Node(Stone stone, Node* parent);
+	Node();
+	Stone stone() const;
 	Node* getParent();
 	void addChild(Node* childnode);
 	Node* getChild(int n);

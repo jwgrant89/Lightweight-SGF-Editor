@@ -1,21 +1,21 @@
 #include "stdafx.h"
 #include "Node.h";
 
-Node::Node(Stone &stone)
+Node::Node(Stone stone)
 {
-	mstone = &stone;
+	mstone = stone;
 };
 
-Node::Node(Stone &stone, Node* parent)
+Node::Node(Stone stone, Node* parent)
 {
-	mstone = &stone;
+	mstone = stone;
 	mparent = parent;
+	parent->addChild(this);
 }
 
-//Node::Node()
-//{
-//	mstone = new Stone();
-//};
+Node::Node()
+{
+};
 
 Node* Node::getParent()
 {
@@ -33,12 +33,12 @@ Node* Node::getChild(int n)
 	return mchildren[n];
 };
 
-Stone* Node::stone() const
+Stone Node::stone() const
 {
 	return mstone;
 }
 
 char Node::colour() const
 {
-	return this->stone()->colour();
+	return this->stone().colour();
 }

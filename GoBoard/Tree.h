@@ -7,14 +7,18 @@
 class Tree
 {
 private:
-	Node mroot;
-	Node* current;
+	Node* mroot;
+	Node* mcurrent;
+	std::vector<Node> mallNodes;
 public:
 	Tree(Node newroot);
 	Tree(Stone stone);
 	Tree();
 	Node* pointerToRoot();
-	void add(Node newnode, Node oldnode);
+	Node* currentMove() const;
+	void select(Node* newcurrent);
+	Node* add(Node& newnode, Node* toNode);
+	Node* add(Stone& stone, Node* toNode);
 };
 
 

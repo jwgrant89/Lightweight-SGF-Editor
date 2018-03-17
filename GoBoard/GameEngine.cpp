@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GameEngine.h";
+#include <iostream>;
 
 GameEngine::GameEngine(int width, int height):mengine(Engine(width,height))
 {
@@ -49,19 +50,19 @@ void GameEngine::setCursorPosition(sf::Vector2f(position))
 {
 	sf::Vector2f nodesize = mengine.NodeSize();
 	sf::Vector2i nodeposition = nodeMousePosition(position);
-	sf::Vector2f rectanglePosition(nodesize.x*(nodeposition.x - 0.5), nodesize.y*(nodeposition.y - 0.5));
+	sf::Vector2f rectanglePosition(nodesize.x*(nodeposition.x +2 - 0.5), nodesize.y*(nodeposition.y+2 - 0.5));
 	mCursor.setPosition(rectanglePosition);
 };
 
 sf::Vector2i GameEngine::nodeMousePosition(sf::Vector2f(position))
 {
 	sf::Vector2f nodesize = mengine.NodeSize();
-	float snaptox = 1.5;
-	int maxx = nodesize.x*(mengine.getGridSize().x + 1);
-	while (snaptox*nodesize.x < position.x-nodesize.x && snaptox*nodesize.x < maxx) snaptox++;
-	float snaptoy = 1.5;
-	int maxy = nodesize.y*(mengine.getGridSize().y + 1);
-	while (snaptoy*nodesize.y < position.y-nodesize.y && snaptoy*nodesize.y < maxy) snaptoy++;
+	float snaptox = -0.5;
+	int maxx = nodesize.x*(mengine.getGridSize().x);
+	while ((snaptox+2)*nodesize.x < position.x-nodesize.x && (snaptox+2)*nodesize.x < maxx) snaptox++;
+	float snaptoy = -0.5;
+	int maxy = nodesize.y*(mengine.getGridSize().y);
+	while ((snaptoy+2)*nodesize.y < position.y-nodesize.y && (snaptoy+2)*nodesize.y < maxy) snaptoy++;
 	int nodex = int(snaptox + 1);
 	int nodey = int(snaptoy + 1);
 	return sf::Vector2i(nodex, nodey);
@@ -82,6 +83,11 @@ void GameEngine::draw()
 	{
 		mwindow.draw(*it);
 	}
+	std::vector<sf::CircleShape> stones = mengine.stoneShapes();
+	for (auto it = stones.begin();it != stones.end(); ++it)
+	{
+		mwindow.draw(*it);
+	}
 	//draw the cursor
 	mwindow.draw(mCursor);
 	mwindow.display();
@@ -93,3 +99,4 @@ void GameEngine::update()
 	setCursorPosition(position);
 	
 }
+

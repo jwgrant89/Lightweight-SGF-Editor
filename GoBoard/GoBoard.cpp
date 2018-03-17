@@ -19,9 +19,9 @@ int main()
 	stone2.setColour('W');
 	std::cout << stone2.colour();
 	std::cout << node1.getChild(0)->colour();
-	std::cout << node2.getParent()->stone()->colour();
+	std::cout << node2.getParent()->stone().colour();
 	stone1.setColour('B');
-	std::cout << node2.getParent()->stone()->colour() << std::endl;
+	std::cout << node2.getParent()->stone().colour() << std::endl;
 	//std::cout << node1.firstChild().getStone().getColour();
 	//node1.firstChild().getStone().setColour('W');
 	//std::cout << node1.firstChild().getStone().getColour();
