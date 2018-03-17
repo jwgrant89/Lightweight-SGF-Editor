@@ -30,8 +30,8 @@ void Engine::initialiseShape()
 
 sf::Vector2f Engine::findPoint(Coord c)
 {
-	float xposition = mboardSize.x / (mboardGridSize.x + 4)*(c.x);
-	float yposition = mboardSize.y / (mboardGridSize.y + 4)*(c.y);
+	float xposition = mboardSize.x / (mboardGridSize.x + 3)*(c.x+2);
+	float yposition = mboardSize.y / (mboardGridSize.y + 3)*(c.y+2);
 	sf::Vector2f position(xposition, yposition);
 	position = localCoordinates(position);
 	return position;
@@ -41,12 +41,13 @@ std::vector<sf::RectangleShape> Engine::drawBoard()
 {
 	std::vector<sf::RectangleShape> contents;
 	contents.push_back(mboardShape);
+	sf::Vector2f nodesize = NodeSize();
 	for (int i = 0;i < mboardGridSize.x;i++)
 	{
 		sf::RectangleShape line;
-		float lineposx = mboardSize.x / (mboardGridSize.x + 4)*(i+2);
-		float lineposy = mboardSize.y / (mboardGridSize.y + 4)*2;
-		float linelength = (mboardSize.y -1)*(mboardGridSize.y) / (mboardGridSize.y + 4)*(mboardGridSize.y - 1) / mboardGridSize.x;
+		float lineposx = nodesize.x*(i+2);
+		float lineposy = nodesize.y*2;
+		float linelength = nodesize.y*(mboardGridSize.y-1);
 		line.setPosition(sf::Vector2f(lineposx, lineposy));
 		line.setFillColor(sf::Color::Black);
 		line.setSize(sf::Vector2f(mlineThickness, linelength));
@@ -55,9 +56,9 @@ std::vector<sf::RectangleShape> Engine::drawBoard()
 	for (int i = 0;i < mboardGridSize.y;i++)
 	{
 		sf::RectangleShape line;
-		float lineposy = mboardSize.y / (mboardGridSize.y + 4)*(i+2);
-		float lineposx = mboardSize.x / (mboardGridSize.x + 4)*2;
-		float linelength = (mboardSize.x)*(mboardGridSize.x) / (mboardGridSize.x + 4)*(mboardGridSize.x-1)/mboardGridSize.x;
+		float lineposy = nodesize.y*(i+2);
+		float lineposx = nodesize.x*2;
+		float linelength = nodesize.x*(mboardGridSize.x-1);
 		line.setPosition(sf::Vector2f(lineposx, lineposy));
 		line.setFillColor(sf::Color::Black);
 		line.setSize(sf::Vector2f(linelength, mlineThickness));
@@ -100,8 +101,8 @@ sf::Vector2f Engine::getBoardPosition()
 
 sf::Vector2f Engine::NodeSize()
 {
-	float sizex = mboardSize.x / (mboardGridSize.x + 4);
-	float sizey = mboardSize.y / (mboardGridSize.y + 4);
+	float sizex = mboardSize.x / (mboardGridSize.x + 3);
+	float sizey = mboardSize.y / (mboardGridSize.y + 3);
 	return sf::Vector2f(sizex, sizey);
 };
 
@@ -170,26 +171,18 @@ std::vector<sf::CircleShape> Engine::stoneShapes()
 		for (int j = 0;j < gridsize.y;j++)
 		{
 			Coord c(i, j);
-			if (mboard[c] == 'B')
+			if (mboard[c] == 'B' || mboard[c] == 'W')
 			{
 				sf::CircleShape stone;
 				sf::Vector2f position = findPoint(c);
 				position.x = position.x - nodesize.x / 2;
 				position.y = position.y - nodesize.y / 2;
 				stone.setPosition(position);
-				stone.setFillColor(sf::Color::Black);
-				stone.setRadius(nodesize.x/2);
-				stones.push_back(stone);
-			}
-			if (mboard[c] == 'W')
-			{
-				sf::CircleShape stone;
-				sf::Vector2f position = findPoint(c);
-				position.x = position.x - nodesize.x / 2;
-				position.y = position.y - nodesize.y / 2;
-				stone.setPosition(position);
-				stone.setFillColor(sf::Color::White);
-				stone.setRadius(nodesize.x/2);
+				stone.setOutlineColor(sf::Color::Black);
+				stone.setOutlineThickness(1);
+				stone.setRadius(nodesize.x / 2-1);
+				if (mboard[c] == 'B') stone.setFillColor(sf::Color::Black);
+				if (mboard[c] == 'W')	stone.setFillColor(sf::Color::White);
 				stones.push_back(stone);
 			}
 		}
